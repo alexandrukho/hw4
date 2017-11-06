@@ -1,4 +1,5 @@
 <?php
+require_once 'errors.php';
 session_start();
 ?>
 <!doctype html>

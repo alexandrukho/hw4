@@ -1,4 +1,7 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 session_start();
 require_once 'db_connect.php';
 ?>
@@ -55,21 +58,29 @@ require_once 'db_connect.php';
 </nav>
 <?php
 if ($_SESSION['uid']) {
-    echo "<table class=\"table table-bordered\">
-        <tr>
+    $photo_info = $pdo->query("SELECT id, photo FROM authentication");
+    $photo_info->execute();
+    $photos = $photo_info->fetchAll();
+    echo "<table class=\"table table-bordered\">";
+    echo "<tr>
             <th>Название файла</th>
             <th>Фотография</th>
             <th>Действия</th>
-        </tr>
-        <tr>
-            <td>1.jpg</td>
-            <td><img src=\"http://lorempixel.com/people/200/200/\" alt=\"\"></td>
-            <td>
-                <a href=\"\">Удалить аватарку пользователя</a>
-            </td>
-        </tr>
-    </table>
-    ";
+        </tr>";
+    foreach ($photos as $item) {
+            $photo_name = stristr($item['photo'], '/', false);
+            $photo_name = str_replace('/', '', $photo_name);
+            echo "<tr>
+            <td>$photo_name</td>
+            <td><img style='max-width: 100px;' src=\"{$item['photo']}\"></td>
+            <td >
+                <a href=\"delete_photo.php?id={$item['id']}\" > Удалить аватарку пользователя </a >
+            </td >
+        </tr >";
+
+    };
+    echo "</table>";
+
 } else {
     echo "<div class=\"container\">
     <h1>Запретная зона, доступ только авторизированному пользователю</h1>

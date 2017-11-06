@@ -1,4 +1,5 @@
 <?php
+require_once 'errors.php';
 require_once 'db_connect.php';
 /*$login = strip_tags(trim($_POST['login']));
 $pwd = htmlspecialchars($_POST['pwd']);

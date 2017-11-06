@@ -1,4 +1,5 @@
 <?php
+require_once 'errors.php';
 session_start();
 require_once 'db_connect.php';
 $uid = $_SESSION['uid'];

@@ -55,7 +55,7 @@ require_once "db_connect.php";
     </div>
 </nav>
 <?php
-
+require_once 'errors.php';
 if ($_SESSION['uid']) {
     $stmt = $pdo->prepare("SELECT * FROM authentication");
     $stmt->execute();
